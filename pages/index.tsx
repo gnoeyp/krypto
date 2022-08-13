@@ -1,7 +1,32 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useCallback, useState, useMemo } from 'react';
+import { encodeText } from '../utils/utils';
 
 const Home: NextPage = () => {
+  const [message, setMessage] = useState<string>('');
+  const [encryptKey, setEncryptKey] = useState<number[]>([
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+  ]);
+  const encryptedMessage = useMemo(() => {
+    if (message.length > 0 && encryptKey)
+      return encodeText(message, encryptKey);
+    return message;
+  }, [encryptKey, message]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.currentTarget.value);
+  };
+
+  const handleChangeKey = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newKey = [...encryptKey];
+    newKey[index] = Number(event.currentTarget.value);
+    setEncryptKey(newKey);
+  };
+
   return (
     <div>
       <Head>
@@ -10,8 +35,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
+        <h1 className="text-3xl font-bold underline">Hello World!</h1>
         <h2>Make your encryption key</h2>
-        <div>Click me</div>
+        <div>
+          <ul>
+            {Array.from({ length: 19 }).map((_, index) => (
+              <li key={index} className="p-1">
+                <input
+                  onChange={event => handleChangeKey(index, event)}
+                  defaultValue={index}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <h2>Enter your message</h2>
+        <textarea value={message} onChange={handleChange} />
+        <div>{encryptedMessage}</div>
       </div>
     </div>
   );
