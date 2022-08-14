@@ -5,6 +5,11 @@ import { encodeText } from '../utils/utils';
 import { CONSONANTS } from '../utils/constants';
 import SelectBox from '../components/SelectBox';
 
+const options = CONSONANTS.map((consonant, index) => ({
+  label: `${index} ${consonant}`,
+  value: index,
+}));
+
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
   const [encryptKey, setEncryptKey] = useState<number[]>([
@@ -40,15 +45,11 @@ const Home: NextPage = () => {
         <h1 className="text-3xl font-bold underline">Hello World!</h1>
         <h2>Make your encryption key</h2>
         <div>
-          {Array.from({ length: 19 }).map((_, index) => (
+          {CONSONANTS.map((consonant, index) => (
             <div key={index}>
-              {CONSONANTS[index]}
+              {consonant}
               <SelectBox
-                // FIXME: better name for cIndex
-                options={CONSONANTS.map((c, cIndex) => ({
-                  label: `${cIndex} ${c}`,
-                  value: cIndex,
-                }))}
+                options={options}
                 onChange={event => handleChangeKey(index, event)}
                 defaultValue={index}
               />
