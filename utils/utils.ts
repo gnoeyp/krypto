@@ -68,8 +68,8 @@ const combine = ([first, middle, last]: number[]) => {
 
 export const encodeText = (text: string, encryptKey: number[]) => {
   const textInCode = text.split('').map(c => c.charCodeAt(0));
-  const textDevided = textInCode.map(c => divide(c));
-  const textEncoded = textDevided.map(c => encodeCharacter(encryptKey, c));
+  const textDivided = textInCode.map(c => divide(c));
+  const textEncoded = textDivided.map(c => encodeCharacter(encryptKey, c));
   const textCombined = textEncoded.map(c => combine(c));
   return textCombined.map(c => String.fromCharCode(c));
 };
