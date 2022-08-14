@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useCallback, useState, useMemo } from 'react';
+import SelectBox from '../components/SelectBox';
 import { encodeText } from '../utils/utils';
 
 const Home: NextPage = () => {
@@ -20,7 +21,7 @@ const Home: NextPage = () => {
 
   const handleChangeKey = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newKey = [...encryptKey];
     newKey[index] = Number(event.currentTarget.value);
@@ -41,7 +42,7 @@ const Home: NextPage = () => {
           <ul>
             {Array.from({ length: 19 }).map((_, index) => (
               <li key={index} className="p-1">
-                <input
+                <SelectBox
                   onChange={event => handleChangeKey(index, event)}
                   defaultValue={index}
                 />
