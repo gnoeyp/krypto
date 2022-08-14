@@ -1,30 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useCallback, useState, useMemo } from 'react';
-import SelectBox from '../components/SelectBox';
+import { useState, useMemo } from 'react';
 import { encodeText } from '../utils/utils';
-
-const consonants = [
-  'ㄱ',
-  'ㄲ',
-  'ㄴ',
-  'ㄷ',
-  'ㄸ',
-  'ㄹ',
-  'ㅁ',
-  'ㅂ',
-  'ㅃ',
-  'ㅅ',
-  'ㅆ',
-  'ㅇ',
-  'ㅈ',
-  'ㅉ',
-  'ㅊ',
-  'ㅋ',
-  'ㅌ',
-  'ㅍ',
-  'ㅎ',
-];
+import { CONSONANTS } from '../utils/constants';
+import SelectBox from '../components/SelectBox';
 
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
@@ -63,7 +42,7 @@ const Home: NextPage = () => {
         <div>
           {Array.from({ length: 19 }).map((_, index) => (
             <div key={index}>
-              {consonants[index]}
+              {CONSONANTS[index]}
               <SelectBox
                 onChange={event => handleChangeKey(index, event)}
                 defaultValue={index}
