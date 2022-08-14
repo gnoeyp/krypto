@@ -1,10 +1,4 @@
-// 가 44032 0xac00
-// 44032 + 초성번호 * 21 * 28 + 중성번호 * 28 + 종성번호
-// ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ 19 가지
-
-import { lastConsonantMap } from './constants';
-
-const BASE = 44032;
+import { lastConsonantMap, KOR_COMB_MAX, KOR_COMB_MIN } from './constants';
 
 const divide = (c: number) => {
   /*
@@ -13,7 +7,7 @@ const divide = (c: number) => {
    */
 
   const subtractBase = (c: number) => {
-    return c - BASE;
+    return c - KOR_COMB_MIN;
   };
 
   const getLastLetter = (c: number) => {
@@ -63,14 +57,16 @@ const encodeCharacter = (
 };
 
 const combine = ([first, middle, last]: number[]) => {
-  return BASE + first * 21 * 28 + middle * 28 + last;
+  return KOR_COMB_MIN + first * 21 * 28 + middle * 28 + last;
 };
 
 export const encodeText = (text: string, encryptKey: number[]) => {
   const isKor = (c: number) => {
-    return c >= 44032 && c <= 44032 + 18 * 21 * 28 + 20 * 28 + 27;
+    return c >= KOR_COMB_MIN && c <= KOR_COMB_MAX;
   };
-  const textInCode = text.split('').map(c => c.charCodeAt(0));
+  const toArray = (s: string) => s.split('');
+
+  const textInCode = toArray(text).map(c => c.charCodeAt(0));
   const textDivided = textInCode.map(c => (isKor(c) ? divide(c) : c));
   const textEncoded = textDivided.map(c => {
     if (Array.isArray(c)) {

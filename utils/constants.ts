@@ -1,3 +1,5 @@
+export const KOR_COMB_MIN = 44032;
+export const KOR_COMB_MAX = 55203;
 export const CONSONANTS = [
   'ㄱ',
   'ㄲ',
