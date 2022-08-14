@@ -5,13 +5,13 @@ type Option = {
 
 type SelectBoxProps = {
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
-  defaultValue: number | string;
+  value: number | string;
   options: Option[];
 };
 
-const SelectBox = ({ onChange, defaultValue, options }: SelectBoxProps) => {
+const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
   return (
-    <select onChange={onChange} defaultValue={defaultValue}>
+    <select onChange={onChange} value={value}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}

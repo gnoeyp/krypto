@@ -51,7 +51,7 @@ const Home: NextPage = () => {
               <SelectBox
                 options={options}
                 onChange={event => handleChangeKey(index, event)}
-                defaultValue={index}
+                value={encryptKey[index]}
               />
             </div>
           ))}
