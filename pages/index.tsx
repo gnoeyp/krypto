@@ -44,6 +44,11 @@ const Home: NextPage = () => {
             <div key={index}>
               {CONSONANTS[index]}
               <SelectBox
+                // FIXME: better name for cIndex
+                options={CONSONANTS.map((c, cIndex) => ({
+                  label: `${cIndex} ${c}`,
+                  value: cIndex,
+                }))}
                 onChange={event => handleChangeKey(index, event)}
                 defaultValue={index}
               />
