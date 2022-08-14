@@ -23,7 +23,7 @@ export const CONSONANTS = [
 ];
 
 // ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ 28가지
-export const lastConsonantMap = [
+export const LAST_CONSONANT_MAP = [
   [-1, -1], // None
   [0, -1], // ㄱ
   [1, -1], // ㄲ
