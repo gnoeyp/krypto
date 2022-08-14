@@ -8,10 +8,9 @@ const BASE = 44032;
 
 const divide = (c: number) => {
   /*
-    Args:
-        c: an integer representing a hangul character
-    */
-  // XXX: validate c is a hangul character
+   * Args:
+   *   c: an integer representing a hangul character
+   */
 
   const subtractBase = (c: number) => {
     return c - BASE;
@@ -35,14 +34,14 @@ const divide = (c: number) => {
 const encodeCharacter = (
   encryptKey: number[],
   [first, middle, last]: number[],
-) => {
+): number | number[] => {
   const encodeFirstConsonant = (consonant: number) => {
     // XXX: exception handling
     if (encryptKey) return encryptKey[consonant];
     return consonant;
   };
 
-  const encodeLastConsonant = (consonant: number) => {
+  const encodeLastConsonant = (consonant: number): number => {
     if (consonant < 0) return consonant;
     const c = lastConsonantMap[consonant];
     const encoded = [
@@ -57,6 +56,7 @@ const encodeCharacter = (
         return i;
       }
     }
+    return 0;
   };
 
   return [encodeFirstConsonant(first), middle, encodeLastConsonant(last)];
@@ -67,9 +67,20 @@ const combine = ([first, middle, last]: number[]) => {
 };
 
 export const encodeText = (text: string, encryptKey: number[]) => {
+  const isKor = (c: number) => {
+    return c >= 44032 && c <= 44032 + 18 * 21 * 28 + 20 * 28 + 27;
+  };
   const textInCode = text.split('').map(c => c.charCodeAt(0));
-  const textDivided = textInCode.map(c => divide(c));
-  const textEncoded = textDivided.map(c => encodeCharacter(encryptKey, c));
-  const textCombined = textEncoded.map(c => combine(c));
+  const textDivided = textInCode.map(c => (isKor(c) ? divide(c) : c));
+  const textEncoded = textDivided.map(c => {
+    if (Array.isArray(c)) {
+      return encodeCharacter(encryptKey, c);
+    }
+    return c;
+  });
+  const textCombined = textEncoded.map(c => {
+    if (Array.isArray(c)) return combine(c);
+    return c;
+  });
   return textCombined.map(c => String.fromCharCode(c));
 };
