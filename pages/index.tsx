@@ -4,6 +4,28 @@ import { useEffect, useCallback, useState, useMemo } from 'react';
 import SelectBox from '../components/SelectBox';
 import { encodeText } from '../utils/utils';
 
+const consonants = [
+  'ㄱ',
+  'ㄲ',
+  'ㄴ',
+  'ㄷ',
+  'ㄸ',
+  'ㄹ',
+  'ㅁ',
+  'ㅂ',
+  'ㅃ',
+  'ㅅ',
+  'ㅆ',
+  'ㅇ',
+  'ㅈ',
+  'ㅉ',
+  'ㅊ',
+  'ㅋ',
+  'ㅌ',
+  'ㅍ',
+  'ㅎ',
+];
+
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
   const [encryptKey, setEncryptKey] = useState<number[]>([
@@ -39,16 +61,15 @@ const Home: NextPage = () => {
         <h1 className="text-3xl font-bold underline">Hello World!</h1>
         <h2>Make your encryption key</h2>
         <div>
-          <ul>
-            {Array.from({ length: 19 }).map((_, index) => (
-              <li key={index} className="p-1">
-                <SelectBox
-                  onChange={event => handleChangeKey(index, event)}
-                  defaultValue={index}
-                />
-              </li>
-            ))}
-          </ul>
+          {Array.from({ length: 19 }).map((_, index) => (
+            <div key={index}>
+              {consonants[index]}
+              <SelectBox
+                onChange={event => handleChangeKey(index, event)}
+                defaultValue={index}
+              />
+            </div>
+          ))}
         </div>
         <h2>Enter your message</h2>
         <textarea value={message} onChange={handleChange} />
