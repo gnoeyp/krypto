@@ -6,7 +6,7 @@ import { lastConsonantMap } from './constants';
 
 const BASE = 44032;
 
-const devide = (c: number) => {
+const divide = (c: number) => {
   /*
     Args:
         c: an integer representing a hangul character
@@ -68,7 +68,7 @@ const combine = ([first, middle, last]: number[]) => {
 
 export const encodeText = (text: string, encryptKey: number[]) => {
   const textInCode = text.split('').map(c => c.charCodeAt(0));
-  const textDevided = textInCode.map(c => devide(c));
+  const textDevided = textInCode.map(c => divide(c));
   const textEncoded = textDevided.map(c => encodeCharacter(encryptKey, c));
   const textCombined = textEncoded.map(c => combine(c));
   return textCombined.map(c => String.fromCharCode(c));
