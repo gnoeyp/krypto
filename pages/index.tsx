@@ -34,6 +34,23 @@ const Home: NextPage = () => {
     setEncryptKey(newKey);
   };
 
+  const shuffle = (array: any[]) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return [...array];
+  };
+
   return (
     <div>
       <Head>
@@ -56,6 +73,9 @@ const Home: NextPage = () => {
             </div>
           ))}
         </div>
+        <button onClick={() => setEncryptKey(shuffle(encryptKey))}>
+          Shuffle
+        </button>
         <h2>Enter your message</h2>
         <textarea value={message} onChange={handleChange} />
         <div>{encryptedMessage}</div>

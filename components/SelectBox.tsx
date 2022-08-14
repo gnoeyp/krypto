@@ -11,7 +11,7 @@ type SelectBoxProps = {
 
 const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
   return (
-    <select onChange={onChange} value={value}>
+    <select onChange={onChange} value={Number(value)}>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
           {option.label}

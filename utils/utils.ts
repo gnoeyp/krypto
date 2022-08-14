@@ -5,8 +5,7 @@ type Character = {
   value: number[];
 };
 
-// FIXME: array type
-const arraysEqual = (arr1: Array, arr2: Array) => {
+const arraysEqual = (arr1: any[], arr2: any[]) => {
   if (arr1.length !== arr2.length) return false;
   for (let i = 0; i < arr1.length; i++) {
     if (Array.isArray(arr1[i]) && Array.isArray(arr2[i])) {
