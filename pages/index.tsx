@@ -55,10 +55,10 @@ const Home: NextPage = () => {
     <div className="flex flex-col items-center">
       <h1 className="text-3xl font-bold">KRypto</h1>
       <h2>Make your encryption key</h2>
-      <div>
+      <div className="flex">
         {CONSONANTS.map((consonant, index) => (
-          <div key={index}>
-            {consonant}
+          <div key={index} className="flex w-20 flex-col items-center border">
+            <div className="text-center">{consonant}</div>
             <SelectBox
               options={options}
               onChange={event => handleChangeKey(index, event)}
@@ -67,7 +67,10 @@ const Home: NextPage = () => {
           </div>
         ))}
       </div>
-      <button onClick={() => setEncryptKey(shuffle(encryptKey))}>
+      <button
+        className="border"
+        onClick={() => setEncryptKey(shuffle(encryptKey))}
+      >
         Shuffle
       </button>
       <h2>Enter your message</h2>
