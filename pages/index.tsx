@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useState, useMemo } from 'react';
 import { encodeText } from '../utils/utils';
 import { CONSONANTS } from '../utils/constants';
@@ -52,30 +51,39 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-20">
       <h1 className="text-3xl font-bold">KRypto</h1>
-      <h2>Make your encryption key</h2>
-      <div className="flex">
-        {CONSONANTS.map((consonant, index) => (
-          <div key={index} className="flex w-20 flex-col items-center border">
-            <div className="text-center">{consonant}</div>
-            <SelectBox
-              options={options}
-              onChange={event => handleChangeKey(index, event)}
-              value={encryptKey[index]}
-            />
-          </div>
-        ))}
+      <h2 className="text-xl">Make your encryption key</h2>
+
+      <div className="flex flex-col items-center p-5">
+        <div className="flex p-2">
+          {CONSONANTS.map((consonant, index) => (
+            <div key={index} className="flex w-20 flex-col items-center border">
+              <div className="text-center">{consonant}</div>
+              <SelectBox
+                options={options}
+                onChange={event => handleChangeKey(index, event)}
+                value={encryptKey[index]}
+              />
+            </div>
+          ))}
+        </div>
+        <button
+          className="w-36 border bg-gray-100 p-1 text-gray-800 hover:bg-gray-200"
+          onClick={() => setEncryptKey(shuffle(encryptKey))}
+        >
+          Shuffle
+        </button>
       </div>
-      <button
-        className="border"
-        onClick={() => setEncryptKey(shuffle(encryptKey))}
-      >
-        Shuffle
-      </button>
-      <h2>Enter your message</h2>
-      <textarea value={message} onChange={handleChange} />
-      <div>{encryptedMessage}</div>
+      <div className="flex flex-col items-center p-5">
+        <h2 className="text-xl">Enter your message</h2>
+        <textarea
+          className="w-96 border"
+          value={message}
+          onChange={handleChange}
+        />
+        <div className="h-20 w-96 border">{encryptedMessage}</div>
+      </div>
     </div>
   );
 };
