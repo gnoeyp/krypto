@@ -59,7 +59,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <h1 className="text-3xl font-bold underline">KRypto</h1>
+        <h1 className="text-3xl font-bold">KRypto</h1>
         <h2>Make your encryption key</h2>
         <div>
           {CONSONANTS.map((consonant, index) => (
