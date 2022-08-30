@@ -40,7 +40,7 @@ const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
         </div>
       </div>
       {isSelecting && (
-        <div className="absolute border">
+        <div className="absolute w-20 border">
           <ul>
             {options.map((option, index) => (
               <li
