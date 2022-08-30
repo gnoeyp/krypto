@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 type SelectBoxProps = {
@@ -27,11 +29,15 @@ const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
   return (
     <div className="w-full">
       <div
-        className="cursor-pointer border"
+        className="flex cursor-pointer justify-between border"
         onClick={handleClick}
         onWheel={handleWheel}
       >
-        {value} {options[value]}
+        <div className="px-1">{value}</div>
+        <div>{options[value]}</div>
+        <div className="px-1 text-slate-500">
+          <FontAwesomeIcon icon={faSort} />
+        </div>
       </div>
       {isSelecting && (
         <div className="absolute border">
