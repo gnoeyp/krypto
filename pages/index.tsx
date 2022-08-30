@@ -58,7 +58,7 @@ const Home: NextPage = () => {
             <div key={index} className="flex w-20 flex-col items-center border">
               <div className="text-center">{consonant}</div>
               <SelectBox
-                options={options}
+                options={CONSONANTS}
                 onChange={value => handleChangeKey(index, value)}
                 value={encryptKey[index]}
               />
