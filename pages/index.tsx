@@ -24,12 +24,9 @@ const Home: NextPage = () => {
     setMessage(event.currentTarget.value);
   };
 
-  const handleChangeKey = (
-    index: number,
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
+  const handleChangeKey = (index: number, value: number | string) => {
     const newKey = [...encryptKey];
-    newKey[index] = Number(event.currentTarget.value);
+    newKey[index] = Number(value);
     setEncryptKey(newKey);
   };
 
@@ -62,7 +59,7 @@ const Home: NextPage = () => {
               <div className="text-center">{consonant}</div>
               <SelectBox
                 options={options}
-                onChange={event => handleChangeKey(index, event)}
+                onChange={value => handleChangeKey(index, value)}
                 value={encryptKey[index]}
               />
             </div>
