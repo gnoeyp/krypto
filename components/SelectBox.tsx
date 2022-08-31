@@ -3,7 +3,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 type SelectBoxProps = {
-  onChange: (value: number | string) => void;
+  onChange: (value: number) => void;
   value: number;
   options: string[];
 };
@@ -14,7 +14,7 @@ const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
     setIsSelecting(prevIsSelecting => !prevIsSelecting);
   };
 
-  const handleClickItem = (item: number | string) => {
+  const handleClickItem = (item: number) => {
     onChange(item);
     setIsSelecting(false);
   };

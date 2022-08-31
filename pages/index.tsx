@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 import { useState, useMemo } from 'react';
 import { encodeText, shuffle } from '../utils/utils';
-import { CONSONANTS } from '../utils/constants';
-import SelectBox from '../components/SelectBox';
+import KeyDial from '../components/KeyDial';
 
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
@@ -32,18 +31,7 @@ const Home: NextPage = () => {
       <h2 className="text-xl">Make your encryption key</h2>
 
       <div className="flex flex-col items-center p-5">
-        <div className="flex p-2">
-          {CONSONANTS.map((consonant, index) => (
-            <div key={index} className="flex w-20 flex-col items-center border">
-              <div className="text-center">{consonant}</div>
-              <SelectBox
-                options={CONSONANTS}
-                onChange={value => handleChangeKey(index, value)}
-                value={encryptKey[index]}
-              />
-            </div>
-          ))}
-        </div>
+        <KeyDial onChange={handleChangeKey} encryptKey={encryptKey} />
         <button
           className="w-36 border bg-gray-100 p-1 text-gray-800 hover:bg-gray-200"
           onClick={() => setEncryptKey(shuffle(encryptKey))}
