@@ -106,3 +106,20 @@ export const encodeText = (text: string, encryptKey: number[]) => {
   const textCombined = textEncoded.map(c => combine(c));
   return textCombined.map(c => String.fromCharCode(c));
 };
+
+export const shuffle = (array: any[]) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return [...array];
+};

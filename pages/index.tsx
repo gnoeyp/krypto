@@ -1,19 +1,15 @@
 import type { NextPage } from 'next';
 import { useState, useMemo } from 'react';
-import { encodeText } from '../utils/utils';
+import { encodeText, shuffle } from '../utils/utils';
 import { CONSONANTS } from '../utils/constants';
 import SelectBox from '../components/SelectBox';
-
-const options = CONSONANTS.map((consonant, index) => ({
-  label: `${index} ${consonant}`,
-  value: index,
-}));
 
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
   const [encryptKey, setEncryptKey] = useState<number[]>([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
   ]);
+
   const encryptedMessage = useMemo(() => {
     if (message.length > 0 && encryptKey)
       return encodeText(message, encryptKey);
@@ -28,23 +24,6 @@ const Home: NextPage = () => {
     const newKey = [...encryptKey];
     newKey[index] = Number(value);
     setEncryptKey(newKey);
-  };
-
-  const shuffle = (array: any[]) => {
-    let currentIndex = array.length,
-      randomIndex;
-
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return [...array];
   };
 
   return (
