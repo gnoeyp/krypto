@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import KeyDial from '../components/KeyDial';
-import { encodeText, shuffle } from '../utils/utils';
+import { encodeText, shuffle, Keys } from '../utils/utils';
 import { useState, useMemo, useEffect } from 'react';
 
 type QuizProps = {
@@ -13,7 +13,6 @@ export async function getServerSideProps() {
   const message = messages[Math.floor(Math.random() * messages.length)];
 
   const encryptKey = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
-  console.log(encryptKey);
 
   const encryptedMessage = encodeText(message, encryptKey);
 
@@ -25,7 +24,7 @@ export async function getServerSideProps() {
 }
 
 const Quiz: NextPage<QuizProps> = ({ message }) => {
-  const [decryptKey, setDecryptKey] = useState<number[]>([
+  const [decryptKey, setDecryptKey] = useState<Keys[]>([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
   ]);
 
@@ -37,7 +36,7 @@ const Quiz: NextPage<QuizProps> = ({ message }) => {
 
   const handleChangeKey = (index: number, value: number | string) => {
     const newKey = [...decryptKey];
-    newKey[index] = Number(value);
+    newKey[index] = Number(value) as Keys;
     setDecryptKey(newKey);
   };
 

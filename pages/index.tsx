@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
 import { useState, useMemo } from 'react';
-import { encodeText, shuffle } from '../utils/utils';
+import { encodeText, shuffle, Keys } from '../utils/utils';
 import KeyDial from '../components/KeyDial';
 
 const Home: NextPage = () => {
   const [message, setMessage] = useState<string>('');
-  const [encryptKey, setEncryptKey] = useState<number[]>([
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+  const [encryptKey, setEncryptKey] = useState<Keys[]>([
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
   ]);
 
   const encryptedMessage = useMemo(() => {
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
   const handleChangeKey = (index: number, value: number | string) => {
     const newKey = [...encryptKey];
-    newKey[index] = Number(value);
+    newKey[index] = Number(value) as Keys;
     setEncryptKey(newKey);
   };
 
