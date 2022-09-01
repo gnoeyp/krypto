@@ -3,42 +3,38 @@ import KeyDial from '../components/KeyDial';
 import { encodeText, shuffle } from '../utils/utils';
 import { useState, useMemo, useEffect } from 'react';
 
-const messages = [
-  '편견은 내가 다른 사람을 사랑하지 못하게 하고 오만은 다른 사람이 나를 사랑하지 못하게 한다',
-  '아픔이 있으면 회복이 있듯이 너의 인생도 곧 꽃들이 활짝 필 것이다',
-];
+type QuizProps = {
+  message: string;
+};
 
-const Quiz: NextPage = () => {
-  const [message, setMessage] = useState<string>('');
-  const [encryptKey, setEncryptKey] = useState<number[]>([]);
+export async function getServerSideProps() {
+  const { messages } = await import('../data.json');
+
+  const message = messages[Math.floor(Math.random() * messages.length)];
+
+  const encryptKey = shuffle([
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+  ]);
+
+  const encryptedMessage = encodeText(message, encryptKey).join('');
+
+  return {
+    props: {
+      message: encryptedMessage,
+    },
+  };
+}
+
+const Quiz: NextPage<QuizProps> = ({ message }) => {
   const [decryptKey, setDecryptKey] = useState<number[]>([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
   ]);
 
-  useEffect(() => {
-    setMessage(messages[0]);
-    setEncryptKey(
-      shuffle([
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-      ]),
-    );
-  }, []);
-
-  const encryptedMessage = useMemo(() => {
-    if (message.length > 0 && encryptKey)
-      return encodeText(message, encryptKey);
-    return message;
-  }, [encryptKey, message]);
-
   const decryptedMessage = useMemo(() => {
-    if (encryptedMessage && encryptedMessage.length > 0 && decryptKey)
-      return encodeText(encryptedMessage.join(''), decryptKey);
-    return encryptedMessage;
-  }, [decryptKey, encryptedMessage]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(event.currentTarget.value);
-  };
+    if (message && message.length > 0 && decryptKey)
+      return encodeText(message, decryptKey);
+    return message;
+  }, [decryptKey, message]);
 
   const handleChangeKey = (index: number, value: number | string) => {
     const newKey = [...decryptKey];
@@ -49,9 +45,10 @@ const Quiz: NextPage = () => {
   return (
     <div>
       <h1>Today&apos;s Quiz</h1>
-      <div>{encryptedMessage}</div>
-      <div>{decryptedMessage}</div>
+      <div>Encrypted: {message}</div>
+      <div>Decrypted: {decryptedMessage}</div>
       <KeyDial onChange={handleChangeKey} encryptKey={decryptKey} />
+      <button>Submit</button>
     </div>
   );
 };

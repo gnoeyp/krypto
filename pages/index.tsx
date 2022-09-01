@@ -27,20 +27,17 @@ const Home: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center p-20">
-      <h1 className="text-3xl font-bold">KRypto</h1>
-      <h2 className="text-xl">Make your encryption key</h2>
+      <h1>KRypto</h1>
+      <h2>Make your encryption key</h2>
 
       <div className="flex flex-col items-center p-5">
         <KeyDial onChange={handleChangeKey} encryptKey={encryptKey} />
-        <button
-          className="w-36 border bg-gray-100 p-1 text-gray-800 hover:bg-gray-200"
-          onClick={() => setEncryptKey(shuffle(encryptKey))}
-        >
+        <button onClick={() => setEncryptKey(shuffle(encryptKey))}>
           Shuffle
         </button>
       </div>
       <div className="flex flex-col items-center p-5">
-        <h2 className="text-xl">Enter your message</h2>
+        <h2>Enter your message</h2>
         <textarea
           className="w-96 border"
           value={message}
