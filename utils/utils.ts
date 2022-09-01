@@ -87,6 +87,46 @@ export const encodeText = (text: string, encryptKey: number[]) => {
   const isKor = (c: number) => {
     return c >= KOR_COMB_MIN && c <= KOR_COMB_MAX;
   };
+
+  /*
+    0 -> 0 ㄱ
+    1 -> 2 ㄴ
+    2 -> 3 ㄷ
+    3 -> 5 ㄹ
+    4 -> 6 ㅁ
+    5 -> 7 ㅂ
+    6 -> 9 ㅅ
+    7 -> 11 ㅇ
+    8 -> 12 ㅈ
+    9 -> 14 ㅊ
+    10 -> 15 ㅋ
+    11 -> 16 ㅌ
+    12 -> 17 ㅍ
+    13 -> 18 ㅎ
+  */
+  const maps = {
+    0: 0,
+    1: 2,
+    2: 3,
+    3: 5,
+    4: 6,
+    5: 7,
+    6: 9,
+    7: 11,
+    8: 12,
+    9: 14,
+    10: 15,
+    11: 16,
+    12: 17,
+    13: 18,
+  };
+  const _encryptKey = encryptKey.map(k => maps[k]);
+  _encryptKey.splice(1, 0, 1);
+  _encryptKey.splice(4, 0, 4);
+  _encryptKey.splice(8, 0, 8);
+  _encryptKey.splice(10, 0, 10);
+  _encryptKey.splice(13, 0, 13);
+
   const toArray = (s: string) => s.split('');
   const toCode = (text: string) => toArray(text).map(c => c.charCodeAt(0));
   const toCharacters = (codes: number[]) =>
@@ -97,14 +137,14 @@ export const encodeText = (text: string, encryptKey: number[]) => {
       };
     });
   const encodeCharacters = (characters: Character[]) => {
-    return characters.map(c => encodeCharacter(encryptKey, c));
+    return characters.map(c => encodeCharacter(_encryptKey, c));
   };
 
   const textInCode = toCode(text);
   const characters = toCharacters(textInCode);
   const textEncoded = encodeCharacters(characters);
   const textCombined = textEncoded.map(c => combine(c));
-  return textCombined.map(c => String.fromCharCode(c));
+  return textCombined.map(c => String.fromCharCode(c)).join('');
 };
 
 export const shuffle = (array: any[]) => {

@@ -22,7 +22,7 @@ const SelectBox = ({ onChange, value, options }: SelectBoxProps) => {
     if (event.deltaY > 0) {
       onChange(Math.max(0, Number(value) - 1));
     } else {
-      onChange(Math.min(18, Number(value) + 1));
+      onChange(Math.min(13, Number(value) + 1));
     }
   };
 

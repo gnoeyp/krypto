@@ -12,11 +12,10 @@ export async function getServerSideProps() {
 
   const message = messages[Math.floor(Math.random() * messages.length)];
 
-  const encryptKey = shuffle([
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-  ]);
+  const encryptKey = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
+  console.log(encryptKey);
 
-  const encryptedMessage = encodeText(message, encryptKey).join('');
+  const encryptedMessage = encodeText(message, encryptKey);
 
   return {
     props: {
@@ -27,7 +26,7 @@ export async function getServerSideProps() {
 
 const Quiz: NextPage<QuizProps> = ({ message }) => {
   const [decryptKey, setDecryptKey] = useState<number[]>([
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
   ]);
 
   const decryptedMessage = useMemo(() => {
