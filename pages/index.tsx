@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { encodeText, shuffle, Keys } from '../utils/utils';
 import KeyDial from '../components/KeyDial';
 
@@ -44,6 +44,7 @@ const Home: NextPage = () => {
           onChange={handleChange}
         />
         <div className="h-20 w-96 border">{encryptedMessage}</div>
+        <a href="/quiz">Go to quiz</a>
       </div>
     </div>
   );
