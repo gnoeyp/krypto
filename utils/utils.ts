@@ -1,5 +1,7 @@
 import { LAST_CONSONANT_MAP, KOR_COMB_MAX, KOR_COMB_MIN } from './constants';
 
+type Keys = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
+
 type Character = {
   isKor: boolean;
   value: number[];
@@ -83,7 +85,7 @@ const combine = (c: Character) => {
   return c.value[0];
 };
 
-export const encodeText = (text: string, encryptKey: number[]) => {
+export const encodeText = (text: string, encryptKey: Keys[]) => {
   const isKor = (c: number) => {
     return c >= KOR_COMB_MIN && c <= KOR_COMB_MAX;
   };
